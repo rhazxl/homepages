@@ -1,0 +1,98 @@
+/* Global styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+/* Navigation bar styles */
+.navibar {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: flex-end;
+    padding: 14px;
+    box-shadow: 0 7px 19px 0 rgba(0, 0, 0, 0.5);
+}
+.navibar a {
+    color: #fff;
+    margin-right: 20px;
+    text-decoration: none;
+}
+
+.navibar a.active {
+    font-weight: bold;
+}
+
+.navibar a:hover {
+    color: crimson;
+    transition: all .3s ease-in-out
+}
+
+.navibar .icon {
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .navibar a:not(:first-child) {
+        display: none;
+    }
+
+    .navibar .icon {
+        display: flex;
+        align-items: center;
+        color: #fff;
+        cursor: pointer;
+        font-size: 20px;
+    }
+
+    .main-section {
+        margin-top: 50px;
+    }
+}
+
+  /* Welcome Teks CSS */
+  .main-section {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: calc(100vh - 80px);
+    text-align: center;
+  }
+  
+  .main-section h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  .main-section p {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  .welcome {
+    text-align: center;
+    animation-name: welcome-animation;
+    animation-duration: 3s;
+  }
+  
+  @keyframes welcome-animation {
+    0% {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    50% {
+      opacity: 0.5;
+      transform: translateX(25px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0px);
+    }
+  }
+  

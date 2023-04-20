@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Cari Zodiak</title>
+      <style>
+   /* Reset default styles */
+  * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Style for the body element */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+/* Style for the select element */
+select {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  background-color: #fff;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  outline: none;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  display: block;
+}
+
+/* Style for the option element */
+option {
+  padding: 10px;
+}
+
+/* Style for the select element when it is focused */
+select:focus {
+  border: 2px solid #0066cc;
+}
+
+      </style>
+    </head>
+  <body>
+    <select type-content="selected">
+      <option value="aries">Aries</option>
+      <option value="taurus">Taurus</option>
+      <option value="gemini">Gemini</option>
+      <option value="cancer">Cancer</option>
+      <option value="leo">Leo</option>
+      <option value="virgou">Virgou</option>
+      <option value="libra">Libra</option>
+      <option value="scorpio">Scorpio</option>
+      <option value="sagitarius">Sagitarius</option>
+      <option value="capicorn">Capicorn</option>
+      <option value="aquarius">Aquarius</option>
+      <option value="pisces">Pisces</option>
+    </select>
+    <div type-content="class-output"></div>
+    <script>
+      
+//
+//              ✍️ Fungsi data | arieshui
+//
+const data = [
+  {
+    type: "aries",
+    detail: {
+      name: "Aries",
+      bulan: "21 Maret-19 April",
+      rasi_bintang: "Domba jantan 🐏",
+      element: "Api",
+      simbol: "♈"
+    }
+  },
+  {
+    type: "taurus",
+    detail: {
+      name: "Taurus",
+      bulan: "20 April-20 Mei",
+      rasi_bintang: "Banteng 🐂",
+      element: "Bumi",
+      simbol: "♉"
+    }
+  },
+  {
+    type: "gemini",
+    detail: {
+      name: "Gemini",
+      bulan: "21 Mei-20 Juni",
+      rasi_bintang: "Dua bersaudara 👬",
+      element: "Udara",
+      simbol: "♊"
+    }
+  },
+  {
+    type: "cancer",
+    detail: {
+      name: "Cancer",
+      bulan: "21 Juni-22 Juli",
+      rasi_bintang: "Kepiting 🦀",
+      element: "Air",
+      simbol: "♋"
+    }
+  },
+  {
+    type: "leo",
+    detail: {
+      name: "Leo",
+      bulan: "21 Mei-20 Juni",
+      rasi_bintang: "Singa 🦁",
+      element: "Api",
+      simbol: "♌"
+    }
+  },
+  {
+    type: "virgou",
+    detail: {
+      name: "Virgo",
+      bulan: "23 Agustus-22 September",
+      rasi_bintang: "Perawan 🙍‍♀️",
+      element: "Bumi",
+      simbol: "♍"
+    }
+  },
+  {
+    type: "libra",
+    detail: {
+      name: "Libra",
+      bulan: "23 September-22 Oktober",
+      rasi_bintang: "Timbangan ⚖️",
+      element: "Udara",
+      simbol: "♎"
+    }
+  },
+  {
+    type: "scorpio",
+    detail: {
+      name: "Scorpio",
+      bulan: "23 Oktober-21 November",
+      rasi_bintang: "Bintang: Kalajengking 🦂",
+      element: "Air",
+      simbol: "♏"
+    }
+  },
+  {
+    type: "sagitarius",
+    detail: {
+      name: "Sagitarius",
+      bulan: "22 November-21 Desember",
+      rasi_bintang: "Pemanah 🏹",
+      element: "Api",
+      simbol: "♐"
+    }
+  },
+  {
+    type: "capicorn",
+    detail: {
+      name: "Capicorn",
+      bulan: "22 Desember-19 Januari",
+      rasi_bintang: "Kambing gunung 🐐",
+      element: "Bumi",
+      simbol: "♑"
+    }
+  },
+  {
+    type: "aquarius",
+    detail: {
+      name: "Aquarius",
+      bulan: "20 Januari-18 Februari",
+      rasi_bintang: "Pembawa air 🌊💦",
+      element: "Udara",
+      simbol: "♒"
+    }
+  },
+  {
+    type: "pisces",
+    detail: {
+      name: "Pisces",
+      bulan: "19 Februari-20 Maret",
+      rasi_bintang: "Ikan 🐟",
+      element: "Air 🌊🌊",
+      simbol: "♓"
+    }
+  }
+]
+
+/***
+* @name search_zodiak
+*/
+function search_zodiak(input) {
+  // ✍️ VALIDASI TERLEBIH DAHULU
+  if(typeof input != "string") {
+    return {
+      isError: true,
+      message: "Masukan data dengan benar !"
+    }
+  }
+  const i_search = data.map(data => data.type).indexOf(input.toLowerCase())
+  // 🙂
+  if(i_search === -1) {
+    return {
+      isError: true,
+      message: "Data tidak ditemukan"
+    }
+  }
+
+  return {
+    isError: false,
+    data: data[i_search].detail // Mengembalikan data yang benar
+  }
+}
+
+//
+//           Implementasikan ke frontend !
+//
+
+const __selct = document.querySelector('select[type-content="selected"]')
+
+__selct.addEventListener("change", (e) => {
+  e.preventDefault()
+  const __a = search_zodiak(__selct.value)
+  console.log("Pencarian → ", __selct.value)
+  console.log("Data Hasil → ", JSON.stringify(__a,null,2))
+  if(!__a.isError) {
+    document.querySelector('div[type-content="class-output"]').innerText = `Nama: ${__a.data.name}
+Tanggal: ${__a.data.bulan}
+Rasi Bintang: ${__a.data.rasi_bintang}
+Element: ${__a.data.element}
+Simbol: ${__a.data.simbol}`
+  }
+})
+
+    </script>
+  </body>
+</html>

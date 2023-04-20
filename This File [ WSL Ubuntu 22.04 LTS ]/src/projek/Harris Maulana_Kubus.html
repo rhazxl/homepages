@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://restapi-backend.vercel.app/addons?s=prod"></script>
+    <title>Kakulator Luas Dan Volume Kubus</title>
+    <link rel="stylesheet" href="./main.css" />
+  </head>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:ital,wght@0,100;0,300;0,400;0,500;1,100;1,200;1,300;1,400;1,500&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300;1,400;1,500&family=Quicksand:wght@300;400;500&family=Raleway:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300;1,400;1,500;1,600&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400;1,500&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+  color: #fffdfd;
+}
+
+body {
+  background-color: #454545ff;
+}
+
+input, select, button {
+  color: #ffffff;
+  border: 1px solid #666666;
+  padding: 7px 14px;
+  outline: none;
+  border-radius: 3px;
+  background-color: transparent;
+}
+
+label[lp="sisi"] {
+  background-color: #0b3cff9f;
+}
+label[lp="hasil"] {
+  background-color: #00ff0d9f;
+}
+
+.alert {
+  margin: 5px 0px;
+  padding: 9px 16px;
+  background-color: #0d8eff;
+  border-radius: 3px;
+}
+.alert-error {
+  background-color: #ff0d0d;
+}
+
+.content {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-content {
+  width: 100%;
+  max-width: 350px;
+}
+
+form input, form select, form button {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.content-cara {
+  padding: 6px;
+}
+  
+  </style>
+  <body>
+    <div class="content">
+      <div class="center-content">
+        <div class="alert">Masukan Nilai Yang Ingin Di Hitung !</div>
+        <form name="content">
+          <select name="_type">
+            <option value="luas">Cari Luas Kubus</option>
+            <option value="volume">Cari Volume Kubus</option>
+          </select>
+          <input type="number" name="sisi" placeholder="Sisi Kubus..."/>
+          <select name="format">
+            <option disabled selected>Format (Opsional)</option>
+            <option value="mm">Milimeter</option>
+            <option value="cm">Sentimeter</option>
+            <option value="km">Kilometer</option>
+          </select>
+          <button type="submit">Kakulasikan !</button>
+        </form>
+        <div ap-content="cara">
+
+        </div>
+      </div>
+    </div>
+    <script>
+      /**
+ * @name calculatedResults
+ * @copyright ArisafaziKEK!
+*/
+function calculatedResults(options = {}) {
+  const { _type, sisi, format } = options
+  const kuadratdua = (values) => values*values
+  const kuadrattiga = (values) => values*values*values
+  const sisikotak = 6
+  const globalFormatRegister = [
+    "cm", "km", "m", "mm"
+  ]
+  const isFormatA = globalFormatRegister.indexOf(format) != -1? globalFormatRegister[globalFormatRegister.indexOf(format)]:""
+  if(isNaN(sisi) || sisi.length === 0) {
+    return {
+      isError: true,
+      message: "Nilai yang dimasukan bukan berbentuk nomer !"
+    }
+  }
+  switch(_type) {
+    case "luas": {
+      const rumus = sisikotak * kuadratdua(sisi)
+      return {
+        isError: false,
+        data: {
+          hasil: `${rumus}${isFormatA}`,
+          yang_dicari: "Luas",
+          cara: `Diketahui:
+Sisi Kubus : ${sisi}
+
+Penyelesaian:
+L = 6 x s²
+L = 6 x <label lp="sisi">${sisi}${isFormatA}</label>²
+L = 6 x <label lp="sisi">${kuadratdua(sisi)}${isFormatA}</label>
+L = <label lp="hasil">${rumus}${isFormatA}</label>`
+        }
+      }
+    }
+    break;
+    case "volume": {
+      const rumus = kuadrattiga(sisi)
+      return {
+        isError: false,
+        data: {
+          hasil: `${rumus}${isFormatA}`,
+          yang_dicari: "Volume",
+          cara: `Diketahui:
+Sisi Kubus : <label lp="sisi">${sisi}</label>
+
+Penyelesaian:
+V = s³  /  s x s x s
+
+ Cara 1:
+  V = s³
+  V = <label lp="sisi">${sisi}${isFormatA}</label>³
+  V = <label lp="hasil">${kuadrattiga(sisi)}${isFormatA}</label>
+  
+ Cara 2:
+  V = s x s x s
+  V = <label lp="sisi">${sisi}${isFormatA}</label> x <label lp="sisi">${sisi}${isFormatA}</label> x <label lp="sisi">${sisi}${isFormatA}</label>
+  V = <label lp="hasil">${kuadrattiga(sisi)}${isFormatA}</label>`
+        }
+      }
+    }
+    default: {
+      return {
+        isError: true,
+        message: "Masukan tipe rumus yang diinginkan !"
+      }
+    }
+  }
+}
+      const form = document.forms["content"]
+      form.addEventListener("submit", (e) => {
+        e.preventDefault()
+        const data = JSON.parse(JSON.stringify(Object.fromEntries(new FormData(form))))
+        const cara = document.querySelector('div[ap-content="cara"]')
+        const rumus = calculatedResults(data)
+
+        const removeNps = document.querySelectorAll("div.content-cara")
+        if(removeNps[0]) {
+          removeNps[0].remove()
+        }
+
+        if(!rumus.isError) {
+          const al = document.querySelector("div.alert")
+          al.classList?.remove("alert-error")
+          al.innerText = "🎉 Berhasil !"
+          const caraBox = document.createElement("div")
+          caraBox.classList.add("content-cara")
+          caraBox.innerHTML = `<h3>Hasil rumus ${rumus.data.yang_dicari} adalah ${rumus.data.hasil}</h3><pre>${rumus.data.cara}</pre>`
+          cara.appendChild(caraBox)
+        }
+        if(rumus.isError) {
+          const al = document.querySelector("div.alert")
+          al.classList.add("alert-error")
+          al.innerText = rumus.message
+        }
+      })
+    </script>
+  </body>
+</html>
